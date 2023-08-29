@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <style>
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            background-color: #073b6c;
+            border-radius: 20px;
+            box-shadow:
+                -2px -2px 6px rgba(113, 130, 131, 0.6),
+                2px 2px 12px #c8d8e7;
+        }
+
+        #studentDetailsBox {
+            background: linear-gradient(-67deg, rgba(200, 216, 231, .7), rgba(255, 255, 255, .8));
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow:
+                -2px -2px 6px rgba(113, 130, 131, 0.6),
+                2px 2px 12px #c8d8e7;
+            position: absolute; /* Set the position to absolute */
+            top: 0; /* Place it at the top */
+            left: 0; /* Place it at the left */
+        
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #d1e1e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        form {
+            max-width: 700px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(-67deg, rgba(200, 216, 231, .7), rgba(255, 255, 255, .8));
+            overflow: hidden;
+            box-shadow:
+                -2px -2px 6px rgba(113, 130, 131, 0.6),
+                2px 2px 12px #c8d8e7;
+            text-align: center;
+            border-radius: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #073b6c;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #9498d8;
+            border-radius: 3px;
+            font-family: Arial, sans-serif;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #073b6c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0e5a8a;
+        }
+        #otherOptionGroup {
+            display: none;
+        }
+        #photoContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+        }
+        #photoLabel {
+            margin-bottom: 5px;
+        }
+        #photoInput {
+            width: auto; /* Adjusted width */
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="studentDetailsBox">
+        <p><strong>Student ID:</strong> <span id="studentID"></span></p>
+        <p><strong>Name:</strong> <span id="studentName"></span></p>
+    </div>
+
+    <form id="applicationForm" enctype="multipart/form-data">
+        <h1 id="heading">MPC APPLICATION FORM</h1>
+        <label for="malpracticeType">Type of Malpractice:</label>
+        <select id="malpracticeType" name="malpracticeType">
+            <option value="" disabled selected>Select a type</option>
+            <option value="phoneCaught">Phone Caught</option>
+            <option value="chits">Chits</option>
+            <option value="writtenAnsOnBody">Written Answers on Body</option>
+            <option value="other">Other</option>
+        </select>
+        <div id="otherOptionGroup">
+            <label for="otherOption">Specify Other Type:</label>
+            <textarea id="otherOption" name="otherOption" rows="3"></textarea>
+        </div>
+        <br>
+        <div id="photoContainer">
+            <label id="photoLabel" for="photo">Upload Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required id="photoInput">
+        </div>
+        <br>
+        <button type="submit">Submit Application</button>
+    </form>
+    <script>
+        const malpracticeTypeSelect = document.getElementById('malpracticeType');
+        const otherOptionGroup = document.getElementById('otherOptionGroup');
+
+        document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentID = urlParams.get("studentID");
+        const name = urlParams.get("name");
+
+        const studentIDElement = document.getElementById("studentID");
+        const studentNameElement = document.getElementById("studentName");
+
+        studentIDElement.textContent = studentID;
+        studentNameElement.textContent = name;
+        })
+
+        malpracticeTypeSelect.addEventListener('change', () => {
+            if (malpracticeTypeSelect.value === 'other') {
+                otherOptionGroup.style.display = 'block';
+            } else {
+                otherOptionGroup.style.display = 'none';
+            }
+        });
+        const form = document.getElementById('applicationForm');
+        form.addEventListener('submit', (event) => {
+            ; // Prevent the form from actually submitting
+            window.location.href = 'final.html'; // Redirect to final.html
+        });
+        
+    </script>
+</body>
+</html>

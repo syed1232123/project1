@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Data Portal</title>
+<style>
+   
+   
+   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Forum&family=IBM+Plex+Sans:wght@500&family=Phudu:wght@400;500;800&family=Poppins:wght@100;500&display=swap');
+
+   * {
+      -webkit-font-smoothing: antialiased;
+      color: #b5bdc6;
+   }
+
+   :root {
+      --border-radius: 10px;
+   }
+
+   body, html {
+      font-family: 'Poppins', sans-serif;
+      background: #d1e1e6;
+      display: grid;
+      height: 100%;
+      grid-template: 1fr/100%;
+      place-items: center;
+   }
+
+   .Card {
+      padding: 1px;
+      border-radius: var(--border-radius);
+      background: linear-gradient(-67deg, rgba(200, 216, 231, .7), rgba(255, 255, 255, .8));
+      overflow: hidden;
+      font-weight:bolder;
+      box-shadow: 
+         -2px -2px 6px rgba(113, 130, 131, 0.6),
+         2px 2px 12px #c8d8e7;
+      width: 380px;
+      position:fixed;
+   }
+
+   .CardInner {
+      padding: 16px 16px;
+      background-color: #d1e1e6;
+      border-radius: var(--border-radius);
+   }
+
+   .container {
+      display: flex;
+   }
+
+   .Icon {
+      min-width: 46px;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--border-radius);
+      margin-right: 12px;
+      box-shadow: 
+         -2px -2px 6px rgba(113, 130, 131, 0.6),
+         2px 2px 12px #c8d8e7;
+
+      svg {
+         transform: translate(-1px, -1px);    
+      }
+   }
+
+   label {
+      font-family: "Hind", sans-serif;
+      display: block;
+      color: #1c437f;
+      margin-bottom: 12px;
+      
+    
+     
+   }
+
+   .InputContainer {
+      width: 100%;
+      
+
+   }
+
+   input {
+      background-color: #e3edf7;
+      padding: 16px 32px;
+      border: none;
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      color: #a9b8c9;
+    
+      transition: all 240ms ease-out;
+      width: 100%;
+
+      &::placeholder {
+         color: #6d7f8f;
+      }
+
+      &:focus {
+         outline: none;
+         color: #6d7f8f;
+         background-color: lighten(#e3edf7, 3%);
+      }
+   }
+
+   .searchfail-alert {
+      display: inline-block;
+          background-color: #cb2017;
+          color: brown;
+          padding: 10px 10px;
+          border-radius: 20px;
+          position:relative;
+          margin-bottom: 500px;
+          width: -50%;
+          
+        
+      }
+
+      .alert{
+         color: #cb2017;
+      }
+
+   .submit-button {
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #073b6c;
+      color: white;
+      cursor: pointer;
+      border-radius: var(--border-radius);
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+
+      &:hover {
+         background-color: #0e5a8a;
+      }
+   }
+</style>
+</head>
+<body>
+   
+   <div class="Card">
+      <div class="CardInner">
+         <label>Enter Student ID</label>
+         <div class="container">
+            <div class="Icon">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+               </svg>
+            </div>
+            
+            <div class="InputContainer">
+               <form id="studentForm">
+                  <input type="text" id="studentID" placeholder="Student ID" required>
+                  <button type="submit" class="submit-button">S U B M I T</button>
+               </form>
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="searchfail-alert" style="display: none;">
+      <h3 id="alert">STUDENT ID NOT FOUND!</h3>
+
+      </div>
+   
+</div>
+             
+           
+   
+
+   <script>
+      document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById('studentForm');
+  const errorMessage = document.getElementById('error-message');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const studentID = document.getElementById('studentID').value;
+
+    // Make a request to the server
+    try {
+      const response = await fetch(`/student?studentID=${studentID}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        // Redirect to the page3.html with the student data
+        window.location.href = `page3.html?studentID=${data.studentID}`;
+      } else {
+        // Display an error message on the same page
+        errorMessage.textContent = 'Student ID not found';
+      }
+    } catch (error) {
+      const searchAlert = document.querySelector('.searchfail-alert');
+      searchAlert.style.display = 'block';
+      setTimeout(() => {
+      searchAlert.style.display = 'none';
+    }, 1000);
+      
+      
+      console.error('Error:', error);
+      errorMessage.textContent = 'An error occurred';
+    }
+    
+  });
+});
+   </script>
+</body>
+</html>

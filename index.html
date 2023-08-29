@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Forum&family=IBM+Plex+Sans:wght@500&family=Phudu:wght@400;500;800&family=Poppins:wght@100;500&display=swap');
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: #a2b9c0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-container {
+        background: #d1e1e6;  
+        border-radius: 30px;
+        padding: 30px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 
+          -2px -2px 6px rgba(57, 70, 70, 0.5),
+          2px 2px 12px #bdbdbd;
+      }
+
+      .login-container h2 {
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        font-family: 'Poppins', sans-serif;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-group input {
+        font-family: 'Poppins', sans-serif;
+        width: 95%;
+        padding: 10px;
+        border: 1px solid #6c84a0;
+        border-radius: 4px;
+        background-color: #dbe7ea; /* Initial background color */
+        transition: background-color 0.3s ease;
+      }
+
+      .form-group input:focus {
+        background-color: #ffffff; /* Background color on focus */
+      }
+
+      .form-group button {
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        padding: 10px;
+        background-color: #0d2c4d;
+        border: none;
+        border-radius: 4px;
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      .form-group button:hover {
+        background-color: #ffffff;
+        color: #0d2c4d;
+      }
+
+      .logo {
+        display: block;
+        margin: 0 auto;
+        max-width: 150px;
+      }
+      
+      /* Custom Alert Styles */
+      .alert {
+        width: 50%;
+        margin: 20px auto;
+        padding: 30px;
+        position: relative;
+        border-radius: 5px;
+        box-shadow: 
+          -2px -2px 6px rgba(57, 70, 70, 0.5),
+          2px 2px 12px #bdbdbd;
+      }
+
+      .close {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        opacity: 0.5;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 50%;
+        right: 15px;
+        top: 25px;
+        text-align: center;
+        font-size: 1.6em;
+        cursor: pointer;
+      }
+
+      /* Apply alert styles */
+      .loginsuccess-alert {
+        background-color: #5cb885;
+        border-left: 5px solid #0c763e;
+        
+      }
+
+        .loginfail-alert {
+          background-color: #f7a7a3;
+        border-left: 5px solid #b06767;
+      }
+    </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h2>LOGIN ACCOUNT</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">L O G I N</button>
+      </div>
+    </form>
+    <!-- Custom alert replaces error message -->
+    <div class="alert loginfail-alert" style="display: none;">
+      <h3>Invalid Username or Password</h3>
+      
+    </div>
+    <div class="alert loginsuccess-alert" style="display: none;">
+      <h3>Login Successful</h3>
+      
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

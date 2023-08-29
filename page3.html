@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Forum&family=IBM+Plex+Sans:wght@500&family=Phudu:wght@400;500;800&family=Poppins:wght@100;500&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #d1e1e6; /* Changed background color */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #studentData {
+            font-family: 'Poppins', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px; /* Added border-radius */
+            background: linear-gradient(-67deg, rgba(200, 216, 231, .7), rgba(255, 255, 255, .8)); /* Added background gradient */
+            overflow: hidden;
+            box-shadow:
+                -2px -2px 6px rgba(113, 130, 131, 0.6),
+                2px 2px 12px #c8d8e7;
+        }
+        strong {
+            font-weight: bold;
+        }
+        .editable{
+            color: beige;
+        }
+        .continue-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #073b6c;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow:
+                -2px -2px 6px rgba(113, 130, 131, 0.6),
+                2px 2px 12px #c8d8e7;
+        }
+        .edit-button {
+            display: inline-block;
+            padding: 10px;
+            background-color: #b5bdc6;
+            color: #073b6c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow:
+                -2px -2px 6px rgba(113, 130, 131, 0.6),
+                2px 2px 12px #c8d8e7;
+        }
+        .edit-button:hover {
+            background-color: #c8d8e7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Details</h1>
+    <div id="studentData"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentID = urlParams.get("studentID");
+
+            const response = await fetch(`/student?studentID=${studentID}`);
+            const student = await response.json();
+
+            const studentDataDiv = document.getElementById("studentData");
+
+            studentDataDiv.innerHTML = `
+                <p><strong>Student ID:</strong> ${student.studentID}</p>
+                <p><strong>Name:</strong> ${student.name}</p>
+                <p><strong>Phone:</strong> <span id="phone">${student.phone}</span>
+                    <button class="edit-button" id="editPhoneButton">Edit</button></p>
+                <p><strong>Age:</strong> ${student.age}</p>
+                <p><strong>Section:</strong> ${student.Section}</p>
+                <p><strong>Father's Name:</strong> ${student.fatherName}</p>
+                <p><strong>Father's Mobile:</strong> ${student.fatherMobile}</p>
+                <p><strong>Branch:</strong> ${student.branch}</p>
+                <button id="continueButton" class="continue-button">Continue</button>
+            `;
+
+            const phoneField = document.getElementById("phone");
+            const editPhoneButton = document.getElementById("editPhoneButton");
+            const continueButton = document.getElementById("continueButton");
+
+            editPhoneButton.addEventListener("click", () => {
+                phoneField.contentEditable = true;
+                phoneField.focus();
+            });
+
+            continueButton.addEventListener("click", () => {
+    // Redirect to page4.html with studentID and name as query parameters
+    window.location.href = `page4.html?studentID=${student.studentID}&name=${student.name}`;
+});
+
+            
+        });
+    </script>
+</body>
+</html>
