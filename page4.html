@@ -100,7 +100,6 @@
     </style>
 </head>
 <body>
-    
     <div id="studentDetailsBox">
         <p><strong>Student ID:</strong> <span id="studentID"></span></p>
         <p><strong>Name:</strong> <span id="studentName"></span></p>
@@ -126,23 +125,24 @@
             <input type="file" id="photo" name="photo" accept="image/*" required id="photoInput">
         </div>
         <br>
-        <button type="submit">Submit Application</button>
+        <button type="submit" id="submitButton">Submit Application</button>
     </form>
     <script>
         const malpracticeTypeSelect = document.getElementById('malpracticeType');
         const otherOptionGroup = document.getElementById('otherOptionGroup');
+        const form = document.getElementById('applicationForm');
 
         document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const studentID = urlParams.get("studentID");
-        const name = urlParams.get("name");
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentID = urlParams.get("studentID");
+            const name = urlParams.get("name");
 
-        const studentIDElement = document.getElementById("studentID");
-        const studentNameElement = document.getElementById("studentName");
+            const studentIDElement = document.getElementById("studentID");
+            const studentNameElement = document.getElementById("studentName");
 
-        studentIDElement.textContent = studentID;
-        studentNameElement.textContent = name;
-        })
+            studentIDElement.textContent = studentID;
+            studentNameElement.textContent = name;
+        });
 
         malpracticeTypeSelect.addEventListener('change', () => {
             if (malpracticeTypeSelect.value === 'other') {
@@ -151,12 +151,11 @@
                 otherOptionGroup.style.display = 'none';
             }
         });
-        const form = document.getElementById('applicationForm');
+
         form.addEventListener('submit', (event) => {
-            ; // Prevent the form from actually submitting
+            event.preventDefault(); // Prevent the form from submitting
             window.location.href = 'final.html'; // Redirect to final.html
         });
-        
     </script>
 </body>
 </html>
